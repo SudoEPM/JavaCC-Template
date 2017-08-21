@@ -37,7 +37,7 @@ If you don't want to use Intellij, you can still execute the tests with the comm
 
 ## Contributing
 
-If you want to contribute or report an issue, you are welcomed. Please use the github repository.
+If you want to contribute or report an issue, you are welcomed. Please use the [github repository](https://github.com/Nic007/JavaCC-Template).
 
 ## Authors
 
