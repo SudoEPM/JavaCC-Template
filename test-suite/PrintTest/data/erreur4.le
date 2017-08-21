@@ -1,0 +1,8 @@
+// Description: Une déclaration après un autre type d'instruction
+
+bool a;
+int b = 0.6;
+
+c = a;
+
+int b = 3;

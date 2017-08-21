@@ -1,0 +1,21 @@
+v = 3.14159;
+a = (3 ^ 2) ^ (1 / 2);
+v += -a - 12.46;
+print(v);
+input(w);
+w -= (2.0 + (((1)))) * 4 + 3;
+print(w * 46);
+print(2.0 + 200.0);
+zeta = sin(1.36);
+k = 4;
+n = cos(1.33 / 2);
+while(k) {
+    k = k - 1;
+    if(k - 2) {
+        v = a = foo(a, b) + bar(a);
+    } else {
+        zeta ^= 2 + 3;
+    }
+}
+print(zeta);
+print(k);

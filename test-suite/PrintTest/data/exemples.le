@@ -1,0 +1,26 @@
+// exemple 1
+v = 3.14159;
+a = (3 ^ 2) ^ (1 / 2);
+v += -a -12.46;
+print(v);
+
+// exemple 2
+input(w);
+w -= (2.0 + (((1)))) * 4 + 3;
+print(w*46);
+print(2.0 + 2.0e2);
+
+// exemple 3
+zeta = sin(1.36);
+k = 4;
+n = cos (1.33 / 2);
+/* Attention! Si je veux executer le fichier d'entree (par interpreteur),
+   j'ai besoin d'eliminer les possibilites de recursion infinie! */
+while (k) {
+	k = k - 1;
+	if (k - 2) { v = a = foo(a,b) + bar(a); }
+	//else {zeta /= 14 ^ 2;}
+	else {zeta ^= 2 + 3;}
+}
+print(zeta);
+print(k);

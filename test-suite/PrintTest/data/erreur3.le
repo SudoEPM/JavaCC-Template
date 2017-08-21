@@ -1,0 +1,6 @@
+// Description: Manque les {}
+
+if 3 == 0:
+	a = 2;
+else
+	c = a;

@@ -1,0 +1,4 @@
+// Description: Manque le ";"
+
+allo = 12
+bozo = 30;

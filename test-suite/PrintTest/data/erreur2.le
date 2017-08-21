@@ -1,0 +1,4 @@
+// Description: Assignation dans le while
+
+while x=7:
+	{a = 2;}
