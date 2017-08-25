@@ -18,7 +18,7 @@ public class ASTAssignStmt extends SimpleNode {
   }
 
   // PLB
-  private Vector m_ops = new Vector();
+  private Vector<String> m_ops = new Vector<>();
   public void addOp(String o) { m_ops.add(o); }
   public Vector getOps() { return m_ops; }
 }

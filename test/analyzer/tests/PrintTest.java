@@ -15,8 +15,8 @@ import analyzer.visitors.PrintVisitor;
  * Last Changed: 17-08-02
  * Author: Nicolas Cloutier
  *
- * Description:
- *
+ * Description: This test the PrintVisitor. So it will basically test that the tree can be written into valid
+ * source code.
  */
 
 @RunWith(Parameterized.class)

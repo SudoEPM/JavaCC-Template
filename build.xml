@@ -21,9 +21,10 @@
 <project name="Template" default="test">
 
     <!-- External libraries, you may have to edit these values -->
-    <property name="intellij-lib-folder" value="/opt/idea-IC-145.972.3/lib" />
-    <property name="junit-jar" value="${intellij-lib-folder}/junit-4.12.jar" />
-    <property name="hamcrest-jar" value="${intellij-lib-folder}/hamcrest-core-1.3.jar" />
+    <!-- Theses values are set in the target compute-idea-lib-folder -->
+    <!-- <property name="intellij-lib-folder" value="" />
+    <property name="junit-jar" value="" />
+    <property name="hamcrest-jar" value="" /> -->
 
     <!-- JavaCC library, you may have to edit these values -->
     <property name="javacc-folder" value="./libs/javacc-7.0.2/bin/lib" />
@@ -50,6 +51,22 @@
         <antcall target="test" />
     </target>
 
+    <target name="compute-idea-lib-folder" depends="">
+        <!-- find the executable -->
+        <exec executable="which" outputproperty="intellij-exe-path">
+            <arg value="idea.sh"/>
+        </exec>
+
+        <!-- Get the correct parent subfolders -->
+        <dirname property="intellij-bin-folder" file="${intellij-exe-path}"/>
+        <dirname property="intellij-folder" file="${intellij-bin-folder}"/>
+
+        <!-- Set the properties for the libs -->
+        <property name="intellij-lib-folder" value="${intellij-folder}/lib"/>
+        <property name="junit-jar" value="${intellij-lib-folder}/junit-4.12.jar" />
+        <property name="hamcrest-jar" value="${intellij-lib-folder}/hamcrest-core-1.3.jar" />
+    </target>
+
     <!-- The target used to generate the parser, it will translate the JavaCC files in
          correct Java code. You may need to execute this for the IDE to stop showing errors.
          In the current Intellij project, this target is executed before each compilation. -->
@@ -74,6 +91,7 @@
         <delete file="${gen-folder}/${parser-file}" />
         <delete file="${gen-folder}/${parser-file-t}" />
 
+        <!-- Delete the files in the gen folder which are present in the src folder -->
         <delete>
             <fileset dir="${gen-folder}" casesensitive="yes">
                 <present present="both" targetdir="${ast-folder}" />
@@ -83,11 +101,12 @@
 
     <!-- This target correctly compile all the java code. It is unused in Intellij,
         but mandatory if you use the command line. -->
-    <target name="full-compile" depends="pre-compile">
+    <target name="full-compile" depends="pre-compile,compute-idea-lib-folder">
 
         <!-- Generate the project. -->
         <mkdir dir="${out-folder}" />
         <javac
+            includeantruntime="false"
             destdir="${out-folder}" >
             <src path="${src-folder}" />
             <src path="${gen-folder}" />
@@ -96,6 +115,7 @@
         <!-- Generate the tests. -->
         <mkdir dir="${test-out-folder}" />
         <javac
+            includeantruntime="false"
             destdir="${test-out-folder}" >
             <src path="${test-src-folder}" />
             <classpath>
@@ -109,7 +129,21 @@
     <!-- This target will use the entry point TestRunner to execute all the tests.
         On Intellij, you can simply right click the green folders and press
         "Run All Tests" to do the same. -->
-    <target name="test" depends="">
+    <target name="test" depends="compute-idea-lib-folder">
+        <!-- Find the results folders -->
+        <pathconvert property="results-folder" pathsep=" ">
+            <dirset dir="${test-result-folder}">
+                <include name="*" />
+            </dirset>
+            <globmapper from="*" to="*/result"/>
+        </pathconvert>
+
+        <!-- Create them if needed -->
+        <exec executable="mkdir">
+            <arg line="${results-folder}"/>
+        </exec>
+
+        <!-- Execute the tests -->
         <java classname="analyzer.TestRunner">
             <classpath>
                 <pathelement location="${out-folder}" />
